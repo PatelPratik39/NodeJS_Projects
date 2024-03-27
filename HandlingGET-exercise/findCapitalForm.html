@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State Capital Fetcher</title>
+</head>
+<body bgcolor="#E2C2F6">
+  <h1>State Capital Fetcher</h1>
+  <form id="stateForm">
+    <label for="stateInput">Enter State Name:</label>
+    <input type="text" id="stateInput" name="state">
+    <button type="submit">Fetch Capital</button>
+  </form>
+  <div id="capitalDisplay"></div>
+
+  <script bgcolor="#E2C2F6">
+    document.getElementById('stateForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const state = document.getElementById('stateInput').value;
+
+      try {
+        const response = await fetch(`/getCapital?state=${encodeURIComponent(state)}`);
+        const data = await response.text();
+        document.getElementById('capitalDisplay').textContent = data;
+      } catch (error) {
+        console.error('Error fetching capital:', error);
+        document.getElementById('capitalDisplay').textContent = 'Error fetching capital';
+      }
+    });
+  </script>
+</body>
+</html>
+
